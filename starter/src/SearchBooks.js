@@ -8,7 +8,7 @@ const SearchBooks = ({updateBookShelf}) => {
   const [searchBooks, setSearchBooks] = useState([]);
 
   const updateQuery = async (query) => {
-    setQuery(query.trim());
+    setQuery(query);
     if(query === "") 
         return setSearchBooks([]);
     const searchBooks = await BooksAPI.search(query);
@@ -32,7 +32,7 @@ const SearchBooks = ({updateBookShelf}) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchBooks.map((book) => {
+          {searchBooks.length > 0 && searchBooks.map((book) => {
             return (
               <li key={book.id}>
                 <Book
