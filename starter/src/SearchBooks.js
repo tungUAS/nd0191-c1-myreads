@@ -9,6 +9,8 @@ const SearchBooks = ({updateBookShelf}) => {
 
   const updateQuery = async (query) => {
     setQuery(query.trim());
+    if(query === "") 
+        return setSearchBooks([]);
     const searchBooks = await BooksAPI.search(query);
     setSearchBooks(searchBooks);
   };

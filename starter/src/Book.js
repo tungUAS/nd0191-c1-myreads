@@ -16,7 +16,7 @@ const Book = ({ book, bookShelf, updateBookShelf }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${book.imageLinks.thumbnail})`,
+            backgroundImage: `url(${book.imageLinks.thumbnail})` || "",
           }}
         ></div>
         <div className="book-shelf-changer">
@@ -35,7 +35,7 @@ const Book = ({ book, bookShelf, updateBookShelf }) => {
         </div>
       </div>
       <div className="book-title">{book.title}</div>
-      <div className="book-authors">{book.authors[0]}</div>
+      <div className="book-authors">{book.authors && book.authors.length > 0 ? book.authors[0] : "unknown"}</div>
     </div>
   );
 };
