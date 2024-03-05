@@ -12,6 +12,7 @@ function App() {
     const getAllBooks = async () => {
       try {
         const books = await BooksAPI.getAll();
+        console.log(books);
         setBooks(books);
       } catch (error) {
         console.error(error);
@@ -19,16 +20,17 @@ function App() {
     };
 
     getAllBooks();
-  }, [books]);
+  }, []);
 
   const updateBookShelf = async (updatedBook, updatedShelf) => {
     updatedBook.shelf = updatedShelf;
 
+    await BooksAPI.update(updatedBook, updatedShelf);
+
     setBooks(
-      books.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+      [...books.filter((book) => book.id !== updatedBook.id), updatedBook]
     );
 
-    BooksAPI.update(updatedBook, updatedShelf);
   };
 
   return (
