@@ -39,7 +39,7 @@ const SearchBooks = ({updateBookShelf}) => {
       return searchBook;
     });
   };
-  
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -59,7 +59,6 @@ const SearchBooks = ({updateBookShelf}) => {
         <ol className="books-grid">
           {noBooksFound && query !== "" && <h2>No books found</h2>}
           {!noBooksFound && searchBooks.length > 0 && searchBooks.map((book) => {
-            console.log(book.shelf);
             return (
               <li key={book.id}>
                 <Book

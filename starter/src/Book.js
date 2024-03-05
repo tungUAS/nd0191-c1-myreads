@@ -1,7 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const Book = ({ book, bookShelf, updateBookShelf }) => {
+  let navigate = useNavigate();
+
   const shelves = [
     {
       id: "1",
@@ -19,8 +22,12 @@ const Book = ({ book, bookShelf, updateBookShelf }) => {
     updateBookShelf(book, event.target.value);
   };
 
+  const handleBookClick = () => {
+    navigate(`/book/${book.id}`);
+  };
+
   return (
-    <div className="book">
+    <div className="book" onClick={handleBookClick}>
       <div className="book-top">
         <div
           className="book-cover"
