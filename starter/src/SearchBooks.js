@@ -16,18 +16,30 @@ const SearchBooks = ({updateBookShelf}) => {
       return;
     }
     const searchResult = await BooksAPI.search(query);
-    console.log(searchResult);
+    const booksOnShelf = await BooksAPI.getAll();
     if (searchResult.error) {
       setSearchBooks([]);
       setNoBooksFound(true);
       return;
     } else {
-      setSearchBooks(searchResult);
+      setSearchBooks(applyShelfToSearchBooks(searchResult, booksOnShelf));
       setNoBooksFound(false);
       return;
     }
   };
 
+  const applyShelfToSearchBooks = (searchBooks, booksOnShelf) => {
+    return searchBooks.map((searchBook) => {
+      const bookOnShelf = booksOnShelf.find((book) => book.id === searchBook.id);
+      if (bookOnShelf) {
+        searchBook.shelf = bookOnShelf.shelf;
+      } else {
+        searchBook.shelf = "none";
+      }
+      return searchBook;
+    });
+  };
+  
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -47,6 +59,7 @@ const SearchBooks = ({updateBookShelf}) => {
         <ol className="books-grid">
           {noBooksFound && query !== "" && <h2>No books found</h2>}
           {!noBooksFound && searchBooks.length > 0 && searchBooks.map((book) => {
+            console.log(book.shelf);
             return (
               <li key={book.id}>
                 <Book
